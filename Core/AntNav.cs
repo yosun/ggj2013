@@ -48,7 +48,7 @@ public class AntNav : MonoBehaviour {
 			rigidbody.AddForce (transform.right*2f,ForceMode.Impulse);
 		}
 	}
-	
+	/*
 	public void KillIt(){
 		if(goSparkle!=null&&!called){
 			GameObject g = GameObject.Instantiate(goSparkle,transform.position,Quaternion.identity) as GameObject;
@@ -60,5 +60,5 @@ public class AntNav : MonoBehaviour {
 		
 		Destroy(gameObject);
 	}	
-	
+	*/
 }

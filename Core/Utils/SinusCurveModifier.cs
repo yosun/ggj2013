@@ -9,6 +9,8 @@ float scale = 1f;
 float speed = 1f;
 Vector3[] baseHeight;
 	
+public Vector3 dir = Vector3.zero;	
+	
 Transform tAnt;
 	
 Vector3 targetAntPos;
@@ -17,15 +19,25 @@ float timeElapsed=0f;
 	
 GameObject goSparkle;
 	
+public Camera cam;
+	
+	PlaySounds ps;
+	
 void Start(){
-	tAnt = GameObject.Find ("MagicCarpet").transform;	
+//	tAnt = GameObject.Find ("MagicCarpet").transform;	
 	goSparkle = transform.Find ("Sparkle Rising").gameObject; goSparkle.SetActiveRecursively(false);
 		
 	scale = Random.Range (0.25f,0.5f);
 	speed = Random.Range (1.05f,1.95f);
+		
+	ps = GameObject.Find ("GameObject").GetComponent<PlaySounds>();
 }
 
+
 void Update () {timeElapsed+=Time.deltaTime;
+		
+
+		
 	Mesh mesh = GetComponent<MeshFilter>().mesh;
 	
 	if (baseHeight == null)
@@ -50,16 +62,20 @@ void Update () {timeElapsed+=Time.deltaTime;
 }
 	
 	void WanderUp(){
-		if(ScoreKeeper.gameover)
-			return;
+		/*if(ScoreKeeper.gameover)
+			return;*/
 		if(transform.position.y>100f){
 			// direct towards ant
 			//print (transform.position);
-			targetAntPos = tAnt.position;
-			MoveTowards (targetAntPos);
+			targetAntPos = new Vector3(0,0.001f,0); //tAnt.position;
+			MoveTowards (Vector3.zero);
 		}else{
 			if(targetAntPos==null||targetAntPos==Vector3.zero){
-				MoveTowards (transform.position+new Vector3(0,1f,-1f));
+				Vector3 z;
+				if(dir!=Vector3.zero)
+				z=transform.position+new Vector3(0,1f,-1f);
+				else z=Vector3.zero;
+				MoveTowards (z);
 			}else {
 				//print (targetAntPos);
 				MoveTowards(targetAntPos);
@@ -77,8 +93,8 @@ void Update () {timeElapsed+=Time.deltaTime;
 		
 		if(name=="Human Heart"){
 			ExplodeSelf();
-		}else if(name=="MagicCarpet"){
-			ScoreKeeper.Dead ();
+		}else if(name=="Plane"){
+			
 		}
 	}
 	

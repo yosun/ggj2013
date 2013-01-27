@@ -7,31 +7,21 @@ public class ScoreKeeper : MonoBehaviour {
 	static float timeElapsed;
 	
 	public GUIText guitext;
+	public static GUIText guiNumHit;
 	
-	public static GUIText guiGameOver;
-	
-	public static bool gameover=false;
-	static AntNav an;
-	static GameObject goAnt;
+	static int numHit=0;
 	
 	void Start(){
-		guiGameOver = GameObject.Find ("guiGameOver").guiText;
-		guiGameOver.active=false;
-		goAnt = GameObject.Find ("MagicCarpet").gameObject;
-		an = goAnt.GetComponent<AntNav>();
+		guiNumHit = GameObject.Find ("GUINumHit").guiText;	
 	}
 	
-	// Use this for initialization
-	public static void Dead () {
-		guiGameOver.gameObject.active=true;
-		gameover=true;
-		//an.KillIt();
+	public static void HitBlob(){
+		numHit++;
+		guiNumHit.text = "Hit: "+numHit.ToString() + " bloodules";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(gameover)
-			return;
 		
 		timeElapsed+=Time.deltaTime;
 		guitext.text = "Time Alive: "+Mathf2.Round10th (timeElapsed).ToString() + "s";
